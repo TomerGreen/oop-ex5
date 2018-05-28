@@ -30,8 +30,6 @@ public abstract class BinarySearchTree implements Iterable<Integer> {
         Node(int value) {
             father = null;
             this.value = value;
-            leftSon = null;
-            rightSon = null;
             height = 0;
             depth = -2;  // Default value since depth is only set when value is searched.
         }
@@ -58,6 +56,7 @@ public abstract class BinarySearchTree implements Iterable<Integer> {
             return this.value == other.value;
         }
 
+// ADDDDVVVVAAAAA
         /**
          * Returns the height difference between the two children of a node.
          *
