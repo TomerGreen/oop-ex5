@@ -1,0 +1,34 @@
+tomerg
+
+
+
+=============================
+=      File description     =
+=============================
+
+
+=============================
+=          Design           =
+=============================
+
+*  The Filter, Order and Section classes and subclasses are in a separate "commands" package. This is because they are
+not directly related to file processing, and may be used for other purposes.
+
+*  We decided to implement exceptions as nested classes of the class that throws them. This is since each exception
+type is specific to the operation performed by the classes we implemented, so we don't want any other class to be able
+to throw them. Exceptions of both Type I and Type II inherit from the Exception class, since they are checked errors.
+The problem with this design is that it doesn't implement the hierarchy of errors. However, this hierarchy is still
+implemented in how the Parser treats the different errors it catches.
+
+*  We used constructors for abstract filter classes in order to initialize fields shared by several filter classes.
+
+=============================
+=  Implementation details   =
+=============================
+
+
+
+
+=============================
+=   Answers to Questions    =
+=============================
