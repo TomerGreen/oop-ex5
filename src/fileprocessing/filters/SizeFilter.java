@@ -1,4 +1,4 @@
-package filters;
+package fileprocessing.filters;
 
 /**
  * Implements filters that match files based on their size.
