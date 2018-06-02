@@ -7,6 +7,8 @@ import java.io.File;
  */
 public class SizeBetweenFilter extends SizeFilter{
 
+    protected static int numFields = 2;
+
     /**
      * Files under this size in KB will not match.
      */

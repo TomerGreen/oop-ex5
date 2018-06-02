@@ -3,7 +3,9 @@ package filters;
 /**
  * Implements file filters that match files based on a boolean property.
  */
-public abstract class BooleanFilter implements Filter {
+public abstract class BooleanFilter extends Filter {
+
+    protected static int numFields = 0;
 
     /**
      * Whether the filter value is YES.

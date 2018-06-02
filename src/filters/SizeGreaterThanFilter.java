@@ -7,6 +7,8 @@ import java.io.File;
  */
 public class SizeGreaterThanFilter extends SizeFilter {
 
+    protected static int numFields = 1;
+
     /**
      * Files strictly over this number of KB will match.
      */

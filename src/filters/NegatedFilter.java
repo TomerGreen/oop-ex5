@@ -6,7 +6,9 @@ import java.io.File;
  * A decorator class that implements a negated filter, which matches a file iff it was not matched by
  * the Filter object that it holds.
  */
-public class NegatedFilter implements Filter {
+public class NegatedFilter extends Filter {
+
+    protected static int numFields = 0;
 
     /**
      * The filter to be negated.

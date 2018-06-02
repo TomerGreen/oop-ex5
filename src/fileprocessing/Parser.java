@@ -41,6 +41,13 @@ public class Parser {
     }
 
     /**
+     * @return The warnings list.
+     */
+    public LinkedList<String> getWarnings() {
+        return warnings;
+    }
+
+    /**
      * Advances to the next line.
      * @throws InvalidCommandFileException
      */

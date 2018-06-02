@@ -7,6 +7,8 @@ import java.io.File;
  */
 public class SizeSmallerThanFilter extends SizeFilter {
 
+    protected static int numFields = 1;
+
     /**
      * The size limit in KB.
      */

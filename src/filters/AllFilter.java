@@ -5,7 +5,9 @@ import java.io.File;
 /**
  * Implements a filter that matches every file.
  */
-public class AllFilter implements Filter {
+public class AllFilter extends Filter {
+
+    protected static int numFields = 0;
 
     /**
      * Creates an All filter.
