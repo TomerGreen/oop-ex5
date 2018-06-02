@@ -1,7 +1,8 @@
+package orders;
 import java.io.File;
 
 /**
- * A subclass of the Order superclass, compare between files based on the opposite of the determined order.
+ * A subclass of the Order superclass, compare between files based on the opposite of the determined orders.
  */
 public class ReverseOrder extends Order {
 

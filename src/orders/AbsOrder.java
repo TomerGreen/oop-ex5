@@ -1,7 +1,8 @@
+package orders;
 import java.io.File;
 
 /**
- *  A subclass of the Order superclass, compare between files based on the ABC order of their AbsolutePath.
+ *  A subclass of the Order superclass, compare between files based on the ABC orders of their AbsolutePath.
  */
 public class AbsOrder extends Order {
 
