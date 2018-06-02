@@ -1,4 +1,4 @@
-package commands;
+package filters;
 
 import java.io.File;
 
@@ -13,6 +13,6 @@ public interface Filter {
      * @param file A given file.
      * @return True iff the file passes the condition.
      */
-    public abstract boolean match(File file);
+    boolean match(File file);
 
 }

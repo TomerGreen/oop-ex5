@@ -1,4 +1,4 @@
-package commands;
+package filters;
 
 import java.io.File;
 

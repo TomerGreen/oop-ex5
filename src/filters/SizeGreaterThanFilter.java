@@ -1,4 +1,4 @@
-package commands;
+package filters;
 
 import java.io.File;
 
@@ -26,7 +26,7 @@ public class SizeGreaterThanFilter extends SizeFilter {
     }
 
     public boolean match(File file) {
-        double fileSize = file.length()/1000;
+        double fileSize = file.length()/1024;
         return fileSize > limit;
     }
 }

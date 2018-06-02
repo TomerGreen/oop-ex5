@@ -1,6 +1,4 @@
-package commands;
-
-import java.io.File;
+package filters;
 
 /**
  * Implements file filters that match files based on a boolean property.
@@ -29,5 +27,5 @@ public abstract class BooleanFilter implements Filter {
         }
     }
 
-    protected class InvalidBooleanFilterValueException extends Exception {}
+    public class InvalidBooleanFilterValueException extends Exception {}
 }
