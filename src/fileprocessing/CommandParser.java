@@ -33,12 +33,17 @@ public class CommandParser {
     /**
      * Creates a parser object.
      * @param filepath The associated text file.
-     * @throws FileNotFoundException When the command file is not found.
+     * @throws CommandFileNotFoundException When the command file is not found.
      * @throws InvalidCommandFileException When one of the lines in the command file cannot be read.
      */
-    public CommandParser(String filepath) throws FileNotFoundException, InvalidCommandFileException {
+    public CommandParser(String filepath) throws CommandFileNotFoundException, InvalidCommandFileException {
         lineCounter = 0;
-        lineReader = new BufferedReader(new FileReader(filepath));
+        try {
+            lineReader = new BufferedReader(new FileReader(filepath));
+        }
+        catch (FileNotFoundException e) {
+            throw new CommandFileNotFoundException();
+        }
         this.advanceLine();
     }
 
@@ -131,6 +136,11 @@ public class CommandParser {
         public InvalidCommandFileException(String message) {
             super(message);
         }
+    }
+
+    /** Thrown when the command file is not found. */
+    private class CommandFileNotFoundException extends Type2ErrorException {
+        public CommandFileNotFoundException() { super("ERROR: Could not find command file."); }
     }
 
 }
