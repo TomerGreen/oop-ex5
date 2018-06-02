@@ -6,6 +6,13 @@ package filters;
  */
 public class FilterFactory {
 
+    /** The filter name index in the parsed fields array. */
+    private static final int NAME_INDEX = 0;
+
+    /** The filter value indices. */
+    private static final int FIRST_VALUE_INDEX = 1;
+    private static final int SECOND_VALUE_INDEX = 1;
+
     /**
      * Creates a filter object from a filter command line.
      * According to exercise guidelines, the method does not handle cases of
@@ -17,34 +24,35 @@ public class FilterFactory {
             BooleanFilter.InvalidBooleanFilterValueException, InvalidFilterNameException {
 
         String[] filterFields = line.split("#");
+        Filter filter;
 
-        if (filterFields[filterFields.length-1] == "NOT") {
-            // The filter line before it is negated.
-            String newLine = line.substring(0, line.length()-4);
-            Filter originalFilter = FilterFactory.generateFilter(newLine);
-            return new NegatedFilter(originalFilter);
+        if (filterFields[NAME_INDEX].equals("greater_than")) {
+             filter = new SizeGreaterThanFilter(Double.parseDouble(filterFields[FIRST_VALUE_INDEX]));
         }
-        if (filterFields[0] == "greater_than") {
-            return new SizeGreaterThanFilter(Double.parseDouble(filterFields[1]));
+        else if (filterFields[NAME_INDEX].equals("between")) {
+            filter = new SizeBetweenFilter(Double.parseDouble(filterFields[FIRST_VALUE_INDEX]),
+                    Double.parseDouble(filterFields[SECOND_VALUE_INDEX]));
         }
-        else if (filterFields[0] == "between") {
-            return new SizeBetweenFilter(Double.parseDouble(filterFields[1]), Double.parseDouble(filterFields[2]));
+        else if (filterFields[NAME_INDEX].equals("smaller_than")) {
+            filter = new SizeSmallerThanFilter(Double.parseDouble(filterFields[FIRST_VALUE_INDEX]));
         }
-        else if (filterFields[0] == "smaller_than") {
-            return new SizeSmallerThanFilter(Double.parseDouble(filterFields[1]));
+        else if (filterFields[NAME_INDEX].equals("writable")) {
+            filter = new WritableFilter(filterFields[FIRST_VALUE_INDEX]);
         }
-        else if (filterFields[0] == "writable") {
-            return new WritableFilter(filterFields[1]);
+        else if (filterFields[NAME_INDEX].equals("executable")) {
+            filter = new ExecutableFilter(filterFields[FIRST_VALUE_INDEX]);
         }
-        else if (filterFields[0] == "executable") {
-            return new ExecutableFilter(filterFields[1]);
-        }
-        else if (filterFields[0] == "hidden") {
-            return new HiddenFilter(filterFields[1]);
+        else if (filterFields[NAME_INDEX].equals("hidden")) {
+            filter = new HiddenFilter(filterFields[FIRST_VALUE_INDEX]);
         }
         else {
             throw new InvalidFilterNameException();
         }
+
+        if (filterFields[filterFields.length - 1].equals("NOT")) {
+            filter = new NegatedFilter(filter);
+        }
+        return filter;
     }
 
     public static class InvalidFilterNameException extends Exception {}
