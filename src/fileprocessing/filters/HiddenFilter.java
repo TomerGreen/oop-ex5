@@ -3,7 +3,7 @@ package fileprocessing.filters;
 import java.io.File;
 
 /**
- * Implements a filter that checks whether the file is hidden.
+ * Implements a filter that only accepts hidden files.
  */
 public class HiddenFilter extends BooleanFilter {
 
@@ -16,7 +16,7 @@ public class HiddenFilter extends BooleanFilter {
         super(value);
     }
 
-    public boolean match(File file) {
+    public boolean accept(File file) {
         return parameter == file.isHidden();
     }
 }

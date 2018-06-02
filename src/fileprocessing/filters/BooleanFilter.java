@@ -1,7 +1,9 @@
 package fileprocessing.filters;
 
+import fileprocessing.exceptions.Type1ErrorException;
+
 /**
- * Implements file filters that match files based on a boolean property.
+ * Implements file filters that accept files based on a boolean property.
  */
 public abstract class BooleanFilter extends Filter {
 
@@ -15,7 +17,7 @@ public abstract class BooleanFilter extends Filter {
     /**
      * Initializes the YES or NO parameter for a boolean filter.
      * @param value can be only either one of the strings "YES" or "NO".
-     * @throws InvalidBooleanFilterValueException
+     * @throws InvalidBooleanFilterValueException When the given parameter is not "YES" or "NO"
      */
     public BooleanFilter(String value) throws InvalidBooleanFilterValueException {
         if (value == "YES") {
@@ -29,5 +31,5 @@ public abstract class BooleanFilter extends Filter {
         }
     }
 
-    public class InvalidBooleanFilterValueException extends Exception {}
+    protected class InvalidBooleanFilterValueException extends Type1ErrorException {}
 }

@@ -3,7 +3,7 @@ package fileprocessing.filters;
 import java.io.File;
 
 /**
- * A decorator class that implements a negated filter, which matches a file iff it was not matched by
+ * A decorator class that implements a negated filter, which accepts a file iff it was not accepted by
  * the Filter object that it holds.
  */
 public class NegatedFilter extends Filter {
@@ -23,7 +23,7 @@ public class NegatedFilter extends Filter {
         originalFilter = original;
     }
 
-    public boolean match(File file) {
-        return !originalFilter.match(file);
+    public boolean accept(File file) {
+        return !originalFilter.accept(file);
     }
 }

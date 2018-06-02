@@ -1,5 +1,7 @@
 package fileprocessing.orders;
 
+import fileprocessing.exceptions.Type1ErrorException;
+
 /**
  * A factory class for creating the right kind of orders based on a
  * orders command line.
@@ -33,5 +35,5 @@ public class OrderFactory {
 	/*
 	 *
 	 */
-	public static class InvalidOrderNameException extends Exception {}
+	private static class InvalidOrderNameException extends Type1ErrorException {}
 }

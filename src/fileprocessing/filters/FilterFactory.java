@@ -1,5 +1,7 @@
 package fileprocessing.filters;
 
+import fileprocessing.exceptions.Type1ErrorException;
+
 /**
  * A factory class for creating the right kind of filter based on a
  * filter command line.
@@ -23,8 +25,7 @@ public class FilterFactory {
      * @param line The command line.
      * @return A filter object.
      */
-    public static Filter generateFilter(String line) throws SizeFilter.InvalidSizeLimitException,
-            BooleanFilter.InvalidBooleanFilterValueException, InvalidFilterNameException {
+    public static Filter generateFilter(String line) throws Type1ErrorException {
 
         String[] filterFields = line.split(COMMAND_DELIMITER);
         Filter filter;
@@ -58,6 +59,6 @@ public class FilterFactory {
         return filter;
     }
 
-    /** Thrown when the command file is not found. */
-    public static class InvalidFilterNameException extends Exception {}
+    /** Thrown when the filter name does not match existing filters. */
+    private static class InvalidFilterNameException extends Type1ErrorException {}
 }

@@ -1,9 +1,11 @@
 package fileprocessing.filters;
 
+import fileprocessing.exceptions.Type1ErrorException;
+
 /**
- * Implements filters that match files based on their size.
+ * Implements filters that accepts files based on their size.
  */
 public abstract class SizeFilter extends Filter {
 
-    public class InvalidSizeLimitException extends Exception {}
+    protected class InvalidSizeLimitException extends Type1ErrorException {}
 }

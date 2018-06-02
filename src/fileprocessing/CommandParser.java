@@ -1,9 +1,9 @@
 package fileprocessing;
 
-import filters.*;
-import orders.AbsOrder;
-import orders.Order;
-import orders.OrderFactory;
+import fileprocessing.exceptions.Type1ErrorException;
+import fileprocessing.exceptions.Type2ErrorException;
+import fileprocessing.orders.*;
+import fileprocessing.filters.*;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -16,7 +16,7 @@ import java.util.LinkedList;
  * A parser object is associated with a file via a BufferedReader object, and saves
  * a linked list of warnings for errors encountered during parsing.
  */
-public class Parser {
+public class CommandParser {
 
     /** The file reader object being parsed. */
     private BufferedReader lineReader;
@@ -33,10 +33,10 @@ public class Parser {
     /**
      * Creates a parser object.
      * @param filepath The associated text file.
-     * @throws FileNotFoundException
-     * @throws InvalidCommandFileException
+     * @throws FileNotFoundException When the command file is not found.
+     * @throws InvalidCommandFileException When one of the lines in the command file cannot be read.
      */
-    public Parser(String filepath) throws FileNotFoundException, InvalidCommandFileException {
+    public CommandParser(String filepath) throws FileNotFoundException, InvalidCommandFileException {
         lineCounter = 0;
         lineReader = new BufferedReader(new FileReader(filepath));
         this.advanceLine();
@@ -99,9 +99,7 @@ public class Parser {
         try {
             return FilterFactory.generateFilter(currLine);
         }
-        catch (BooleanFilter.InvalidBooleanFilterValueException
-                | FilterFactory.InvalidFilterNameException
-                | SizeFilter.InvalidSizeLimitException e) {
+        catch (Type1ErrorException e) {
             warnings.add("Warning in line " + Integer.toString(lineCounter));
             return new AllFilter();
         }
@@ -115,21 +113,21 @@ public class Parser {
         try {
             return OrderFactory.generateOrder(currLine);
         }
-        catch (OrderFactory.InvalidOrderNameException e) {
+        catch (Type1ErrorException e) {
             warnings.add("Warning in line " + Integer.toString(lineCounter));
             return new AbsOrder();
         }
     }
 
     /** Thrown when an ORDER or FILTER line does not appear where it should. */
-    private class MissingSubsectionException extends Exception {
+    private class MissingSubsectionException extends Type2ErrorException {
         public MissingSubsectionException(String message) {
             super(message);
         }
     }
 
     /** Thrown when a line in the command file cannot be read by the FileReader. */
-    private class InvalidCommandFileException extends Exception {
+    private class InvalidCommandFileException extends Type2ErrorException {
         public InvalidCommandFileException(String message) {
             super(message);
         }

@@ -3,7 +3,7 @@ package fileprocessing.filters;
 import java.io.File;
 
 /**
- * Implements a filter that matches every file.
+ * Implements a filter that accepts every file.
  */
 public class AllFilter extends Filter {
 
@@ -14,7 +14,7 @@ public class AllFilter extends Filter {
      */
     public AllFilter() {}
 
-    public boolean match(File file) {
+    public boolean accept(File file) {
         return true;
     }
 }

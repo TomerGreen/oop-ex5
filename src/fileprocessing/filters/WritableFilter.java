@@ -3,7 +3,7 @@ package fileprocessing.filters;
 import java.io.File;
 
 /**
- * Implements a filter that checks if the file is writable.
+ * Implements a filter that only accepts writable files.
  */
 public class WritableFilter extends BooleanFilter {
 
@@ -16,7 +16,7 @@ public class WritableFilter extends BooleanFilter {
             super(value);
     }
 
-    public boolean match(File file) {
+    public boolean accept(File file) {
         return parameter == file.canWrite();
     }
 }

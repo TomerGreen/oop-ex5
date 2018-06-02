@@ -3,7 +3,7 @@ package fileprocessing.filters;
 import java.io.File;
 
 /**
- * Implements a filter that checks whether the file is executable.
+ * Implements a filter that accepts executable files.
  */
 public class ExecutableFilter extends BooleanFilter {
 
@@ -16,7 +16,7 @@ public class ExecutableFilter extends BooleanFilter {
         super(value);
     }
 
-    public boolean match(File file) {
+    public boolean accept(File file) {
         return parameter == file.canExecute();
     }
 }

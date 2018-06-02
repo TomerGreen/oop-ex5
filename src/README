@@ -11,17 +11,17 @@ tomerg
 =          Design           =
 =============================
 
-*  The Filter, Order and Section classes and subclasses are in a separate "filters" package. This is because they are
-not directly related to file processing, and may be used for other purposes.
+*  The Filter, Order and Section classes and subclasses are in a separate "filters" packages that share a path with the
+fileprocessing package. This is so that a user can import only these packages for a different file processing program.
 
-*  We decided to implement exceptions as nested classes of the class that throws them. This is since each exception
-type is specific to the operation performed by the classes we implemented, so we don't want any other class to be able
-to throw them. Exceptions of both Type I and Type II inherit from the Exception class, since they are checked errors.
-The problem with this design is that it doesn't implement the hierarchy of errors. However, this hierarchy is still
-implemented in how the Parser treats the different errors it catches.
+*  We decided to implement the two exception classes as abstract class, and create several nested classes for specific
+exceptions. This is so we can throw specific exceptions when needed, but still mask them under general categories for
+the calling function. We preferred to implement the most specific exceptions as nested classes so they will only be
+thrown in the proper context. This makes sure the caller knows which process caused each exception to be thrown.
 
-*  Negated filters are implemented by a decorator class that takes a Filter as an input and returns an object that
-matches a file iff it is not matched by it.
+*  The Negated filter and Reverse order are implemented by a decorator class that takes a Filter or Order as an input
+and returns an object that matches a file iff it is not matched by it, or returns the opposite of the comparison of the
+original order command.
 
 *  We used constructors for abstract filter classes in order to initialize fields shared by several filter classes.
 

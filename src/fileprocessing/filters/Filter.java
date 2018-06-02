@@ -8,7 +8,7 @@ import java.io.FileFilter;
  * condition, and throw exceptions if the command line is not formatted correctly.
  */
 
-public abstract class Filter {
+public abstract class Filter implements FileFilter {
 
     /** The number of fields the filter expects. */
     protected static int numFields;
@@ -18,7 +18,7 @@ public abstract class Filter {
      * @param file A given file.
      * @return True iff the file passes the condition.
      */
-    protected abstract boolean match(File file);
+    public abstract boolean accept(File file);
 
     /**
      * @return The number of fields the filter expects.

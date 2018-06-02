@@ -3,7 +3,7 @@ package fileprocessing.filters;
 import java.io.File;
 
 /**
- * A filter that matches files that are strictly smaller than a given size.
+ * A filter that accepts files that are strictly smaller than a given size.
  */
 public class SizeSmallerThanFilter extends SizeFilter {
 
@@ -16,7 +16,7 @@ public class SizeSmallerThanFilter extends SizeFilter {
 
     /**
      * Creates the filter
-     * @param value the size in KB's over which files will match.
+     * @param value the size in KB's over which files will be accepted.
      */
     public SizeSmallerThanFilter(double value) throws InvalidSizeLimitException {
         if (value >= 0) {
@@ -27,7 +27,7 @@ public class SizeSmallerThanFilter extends SizeFilter {
         }
     }
 
-    public boolean match(File file) {
+    public boolean accept(File file) {
         double fileSize = file.length()/1024;
         return fileSize < limit;
     }

@@ -3,19 +3,19 @@ package fileprocessing.filters;
 import java.io.File;
 
 /**
- * Implements a filter that matches files whose size is between given values.
+ * Implements a filter that accepts files whose size is between given values.
  */
 public class SizeBetweenFilter extends SizeFilter{
 
     protected static int numFields = 2;
 
     /**
-     * Files under this size in KB will not match.
+     * Files under this size in KB will not be accepted.
      */
     private double lowerBoundary;
 
     /**
-     * Files over this size in KB will not match.
+     * Files over this size in KB will not be accepted.
      */
     private double upperBoundary;
 
@@ -35,7 +35,7 @@ public class SizeBetweenFilter extends SizeFilter{
         }
     }
 
-    public boolean match(File file) {
+    public boolean accept(File file) {
         double fileSize = file.length()/1000;
         return (fileSize >= lowerBoundary && fileSize <= upperBoundary);
     }
