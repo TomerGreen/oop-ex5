@@ -1,11 +1,13 @@
-package filters;
+package fileprocessing.filters;
 
 import java.io.File;
+import java.io.FileFilter;
 
 /**
  * Implemented by filter classes. A filter object can return whether a file object matches its
  * condition, and throw exceptions if the command line is not formatted correctly.
  */
+
 public abstract class Filter {
 
     /** The number of fields the filter expects. */

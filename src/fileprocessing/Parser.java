@@ -1,7 +1,9 @@
 package fileprocessing;
 
 import filters.*;
-import order.Order;
+import orders.AbsOrder;
+import orders.Order;
+import orders.OrderFactory;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -81,8 +83,8 @@ public class Parser {
             if (currLine != "ORDER") {
                 throw new MissingSubsectionException("ERROR: ORDER sub-section missing.");
             }
-            // CREATE ORDER OBJECT HERE.
-            Section currSection = new Section(currFilter);
+            Order currOrder = parseOrderLine();
+            Section currSection = new Section(currFilter, currOrder);
             sections.add(currSection);
             advanceLine();
         }
@@ -102,6 +104,20 @@ public class Parser {
                 | SizeFilter.InvalidSizeLimitException e) {
             warnings.add("Warning in line " + Integer.toString(lineCounter));
             return new AllFilter();
+        }
+    }
+
+    /**
+     * Parse the current command line into an Order object.
+     * @return A corresponding order object.
+     */
+    private Order parseOrderLine() {
+        try {
+            return OrderFactory.generateOrder(currLine);
+        }
+        catch (OrderFactory.InvalidOrderNameException e) {
+            warnings.add("Warning in line " + Integer.toString(lineCounter));
+            return new AbsOrder();
         }
     }
 

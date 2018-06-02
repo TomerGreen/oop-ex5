@@ -1,4 +1,4 @@
-package filters;
+package fileprocessing.filters;
 
 /**
  * Implements file filters that match files based on a boolean property.

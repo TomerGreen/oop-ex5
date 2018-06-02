@@ -1,4 +1,5 @@
-package orders;
+package fileprocessing.orders;
+
 /**
  * A factory class for creating the right kind of orders based on a
  * orders command line.
@@ -32,5 +33,5 @@ public class OrderFactory {
 	/*
 	 *
 	 */
-	private static class InvalidOrderNameException extends Exception {}
+	public static class InvalidOrderNameException extends Exception {}
 }

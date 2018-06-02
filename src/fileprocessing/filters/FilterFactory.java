@@ -1,4 +1,4 @@
-package filters;
+package fileprocessing.filters;
 
 /**
  * A factory class for creating the right kind of filter based on a
@@ -13,6 +13,9 @@ public class FilterFactory {
     private static final int FIRST_VALUE_INDEX = 1;
     private static final int SECOND_VALUE_INDEX = 1;
 
+    /** The delimiter string separating parts of a command line. */
+    private static final String COMMAND_DELIMITER = "#";
+
     /**
      * Creates a filter object from a filter command line.
      * According to exercise guidelines, the method does not handle cases of
@@ -23,7 +26,7 @@ public class FilterFactory {
     public static Filter generateFilter(String line) throws SizeFilter.InvalidSizeLimitException,
             BooleanFilter.InvalidBooleanFilterValueException, InvalidFilterNameException {
 
-        String[] filterFields = line.split("#");
+        String[] filterFields = line.split(COMMAND_DELIMITER);
         Filter filter;
 
         if (filterFields[NAME_INDEX].equals("greater_than")) {
@@ -55,5 +58,6 @@ public class FilterFactory {
         return filter;
     }
 
+    /** Thrown when the command file is not found. */
     public static class InvalidFilterNameException extends Exception {}
 }

@@ -1,7 +1,7 @@
 package fileprocessing;
 
-import filters.Filter;
-import order.Order;
+import fileprocessing.filters.Filter;
+import fileprocessing.orders.Order;
 
 /**
  * Implements a command section, containing a filter and an order clause.
