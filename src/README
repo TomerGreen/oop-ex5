@@ -12,7 +12,7 @@ tomerg
 =============================
 
 *  The Filter, Order and Section classes and subclasses are in a separate "filters" packages that share a path with the
-fileprocessing package. This is so that a user can import only these packages for a different file processing program.
+filesprocessing package. This is so that a user can import only these packages for a different file processing program.
 
 *  We decided to implement the two exception classes as abstract class, and create several nested classes for specific
 exceptions. This is so we can throw specific exceptions when needed, but still mask them under general categories for
@@ -32,7 +32,9 @@ original order command.
 *  Since we need to first check for Type II errors, and only then print all Type I errors, the parser class holds
 a warning list which we add a message to every time an exception is thrown.
 
-
+*  We decided to have CommandProcessor, which holds all the section objects parsed from the command file,
+implement the java.io.FileFilter interface. This way, it can be passed to the fileList function which will return
+only the files that pass all the filters.
 
 =============================
 =   Answers to Questions    =
