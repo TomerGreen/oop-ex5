@@ -40,6 +40,18 @@ public class FilterFactory {
         else if (filterFields[NAME_INDEX].equals("smaller_than")) {
             filter = new SizeSmallerThanFilter(Double.parseDouble(filterFields[FIRST_VALUE_INDEX]));
         }
+        else if (filterFields[NAME_INDEX].equals("file")) {
+            filter = new NameIsFilter(filterFields[FIRST_VALUE_INDEX]);
+        }
+        else if (filterFields[NAME_INDEX].equals("contains")) {
+            filter = new NameContainsFilter(filterFields[FIRST_VALUE_INDEX]);
+        }
+        else if (filterFields[NAME_INDEX].equals("prefix")) {
+            filter = new PrefixIsFilter(filterFields[FIRST_VALUE_INDEX]);
+        }
+        else if (filterFields[NAME_INDEX].equals("suffix")) {
+            filter = new SuffixIsFilter(filterFields[FIRST_VALUE_INDEX]);
+        }
         else if (filterFields[NAME_INDEX].equals("writable")) {
             filter = new WritableFilter(filterFields[FIRST_VALUE_INDEX]);
         }
