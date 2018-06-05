@@ -65,7 +65,8 @@ public class FilterFactory {
             throw new InvalidFilterNameException();
         }
 
-        if (filterFields[filter.getNumFields() + 1].equals("NOT")) {
+        if (filterFields.length > filter.getNumFields() + 1
+                && filterFields[filter.getNumFields() + 1].equals("NOT")) {
             filter = new NegatedFilter(filter);
         }
         return filter;
