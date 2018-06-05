@@ -60,7 +60,6 @@ public class DirectoryProcessor {
         }
         catch (Type2ErrorException e) {
             System.err.println(e.getMessage());
-            return;
         }
     }
 }
