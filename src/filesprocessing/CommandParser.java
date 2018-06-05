@@ -21,8 +21,8 @@ public class CommandParser  implements FileFilter {
     private static final String FILTER_SUBSECTION_TITLE = "FILTER";
     private static final String ORDER_SUBSECTION_TITLE = "ORDER";
     private static final String FILE_NOT_FOUND_MSG = "Could not find command file with path ";
+    private static final String FILTER_SUBSECTION_MISSING_MSG = "FILTER sub-section missing.";
     private static final String ORDER_SUBSECTION_MISSING_MSG = "ORDER sub-section missing.";
-    private static final String FILTER_SUBSECTION_MISSING_MSG = "ORDER sub-section missing.";
 
     /** The file reader object being parsed. */
     private BufferedReader lineReader;
