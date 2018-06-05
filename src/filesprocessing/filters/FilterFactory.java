@@ -8,14 +8,14 @@ import filesprocessing.Type1ErrorException;
  */
 public class FilterFactory {
 
-    /** The filter name index in the parsed fields array. */
+    /* The filter name index in the parsed fields array. */
     private static final int NAME_INDEX = 0;
 
-    /** The filter value indices. */
+    /* The filter value indices. */
     private static final int FIRST_VALUE_INDEX = 1;
-    private static final int SECOND_VALUE_INDEX = 1;
+    private static final int SECOND_VALUE_INDEX = 2;
 
-    /** The delimiter string separating parts of a command line. */
+    /* The delimiter string separating parts of a command line. */
     private static final String COMMAND_DELIMITER = "#";
 
     /**
@@ -71,6 +71,6 @@ public class FilterFactory {
         return filter;
     }
 
-    /** Thrown when the filter name does not match existing filters. */
+    /* Thrown when the filter name does not match existing filters. */
     private static class InvalidFilterNameException extends Type1ErrorException {}
 }

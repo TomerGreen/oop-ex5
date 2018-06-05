@@ -9,6 +9,7 @@ import filesprocessing.Type1ErrorException;
 public class OrderFactory {
 
 	private static final int ORDER_TYPE_INDEX = 0;
+	private static final int REVERSE_INDEX = 1;
 	private static final String SEPARATE_SIGN = "#";
 
 	public static Order generateOrder(String line) throws InvalidOrderNameException{
@@ -26,14 +27,12 @@ public class OrderFactory {
 		else {
 			throw new InvalidOrderNameException();
 		}
-		if(orderFields[orderFields.length-1].equals("REVERSE")){
+		if(orderFields.length > REVERSE_INDEX && orderFields[REVERSE_INDEX].equals("REVERSE")){
 			order = new ReverseOrder(order);
 		}
 		return order;
 	}
 
-	/*
-	 *
-	 */
+	/* Thrown when the order name does not match existing order. */
 	private static class InvalidOrderNameException extends Type1ErrorException {}
 }
