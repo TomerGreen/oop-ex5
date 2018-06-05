@@ -24,19 +24,19 @@ public class CommandParser  implements FileFilter {
     private static final String FILTER_SUBSECTION_MISSING_MSG = "FILTER sub-section missing.";
     private static final String ORDER_SUBSECTION_MISSING_MSG = "ORDER sub-section missing.";
 
-    /** The file reader object being parsed. */
+    /* The file reader object being parsed. */
     private BufferedReader lineReader;
 
-    /** The current line being read. */
+    /* The current line being read. */
     private String currLine;
 
-    /** The number of the current line. */
+    /* The number of the current line. */
     private int lineCounter;
 
-    /** A list of Type I warnings thrown when parsing the command file. */
+    /* A list of Type I warnings thrown when parsing the command file. */
     private LinkedList<String> warnings;
 
-    /** A list of sections parsed from the command file. */
+    /* A list of sections parsed from the command file. */
     private LinkedList<Section> sections;
 
     /**
@@ -47,6 +47,7 @@ public class CommandParser  implements FileFilter {
      */
     public CommandParser(String filepath) throws CommandFileNotFoundException, InvalidCommandFileException,
             MissingSubsectionException {
+        warnings = new LinkedList<>();
         lineCounter = 0;
         try {
             lineReader = new BufferedReader(new FileReader(filepath));
@@ -86,7 +87,7 @@ public class CommandParser  implements FileFilter {
         return warnings;
     }
 
-    /**
+    /*
      * Advances to the next line.
      * @throws InvalidCommandFileException
      */
@@ -111,13 +112,13 @@ public class CommandParser  implements FileFilter {
             InvalidCommandFileException {
         LinkedList<Section> sections = new LinkedList<>();
         while (currLine != null) {
-            if (currLine != FILTER_SUBSECTION_TITLE) {
+            if (currLine.equals(FILTER_SUBSECTION_TITLE)) {
                 throw new MissingSubsectionException(FILTER_SUBSECTION_MISSING_MSG);
             }
             advanceLine();
             Filter currFilter = parseFilterLine();
             advanceLine();
-            if (currLine != ORDER_SUBSECTION_TITLE) {
+            if (currLine.equals(ORDER_SUBSECTION_TITLE)) {
                 throw new MissingSubsectionException(ORDER_SUBSECTION_MISSING_MSG);
             }
             Order currOrder = parseOrderLine();
@@ -128,7 +129,7 @@ public class CommandParser  implements FileFilter {
         return sections;
     }
 
-    /**
+    /*
      * Parses the current command line into a filter object.
      * @return A corresponding filter object.
      */
@@ -142,7 +143,7 @@ public class CommandParser  implements FileFilter {
         }
     }
 
-    /**
+    /*
      * Parse the current command line into an Order object.
      * @return A corresponding order object.
      */
@@ -156,19 +157,19 @@ public class CommandParser  implements FileFilter {
         }
     }
 
-    /** Thrown when an ORDER or FILTER line does not appear where it should. */
+    /* Thrown when an ORDER or FILTER line does not appear where it should. */
     private class MissingSubsectionException extends Type2ErrorException {
         public MissingSubsectionException(String message) { super(message); }
     }
 
-    /** Thrown when a line in the command file cannot be read by the FileReader. */
+    /* Thrown when a line in the command file cannot be read by the FileReader. */
     private class InvalidCommandFileException extends Type2ErrorException {
         public InvalidCommandFileException(String message) {
             super(message);
         }
     }
 
-    /** Thrown when the command file is not found. */
+    /* Thrown when the command file is not found. */
     private class CommandFileNotFoundException extends Type2ErrorException {
         public CommandFileNotFoundException(String message) { super(message); }
     }
