@@ -9,7 +9,6 @@ public abstract class Type2ErrorException extends Exception {
      * @param message The error message.
      */
     public Type2ErrorException(String message) {
-        super(message);
-        message = "ERROR: " + message + "\n";
+        super("ERROR: " + message + "\n");
     }
 }
