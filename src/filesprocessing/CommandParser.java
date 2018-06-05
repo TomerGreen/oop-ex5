@@ -104,6 +104,7 @@ public class CommandParser  implements FileFilter {
 
     /**
      * Parses the associated command file into a linked list of Section objects.
+     * The method expects that when called currLine is the first line in the command file.
      * @return The Section list.
      * @throws MissingSubsectionException
      * @throws InvalidCommandFileException
@@ -111,6 +112,9 @@ public class CommandParser  implements FileFilter {
     public LinkedList<Section> parseCommandFile() throws MissingSubsectionException,
             InvalidCommandFileException {
         LinkedList<Section> sections = new LinkedList<>();
+        if (currLine == null) {
+            throw new MissingSubsectionException(FILTER_SUBSECTION_MISSING_MSG);
+        }
         while (currLine != null) {
             if (currLine.equals(FILTER_SUBSECTION_TITLE)) {
                 throw new MissingSubsectionException(FILTER_SUBSECTION_MISSING_MSG);
