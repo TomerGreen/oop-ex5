@@ -89,7 +89,7 @@ public class DirectoryProcessorTest {
     @org.junit.Test
     public void test05_simple() {
         String sourcedir = "./tester_files/files_to_filter/simple/";
-        String commandFile = "./tester_files/tests/test05/commands.txt";
+        String commandFile = "./tester_files/tests/test05_greater_than/commands.txt";
         String[] args = {sourcedir, commandFile};
         DirectoryProcessor.main(args);
     }
@@ -97,7 +97,7 @@ public class DirectoryProcessorTest {
     @org.junit.Test
     public void test05_complex() {
         String sourcedir = "./tester_files/files_to_filter/complex/";
-        String commandFile = "./tester_files/tests/test05/commands.txt";
+        String commandFile = "./tester_files/tests/test05_greater_than/commands.txt";
         String[] args = {sourcedir, commandFile};
         DirectoryProcessor.main(args);
     }
