@@ -117,4 +117,12 @@ public class DirectoryProcessorTest {
         String[] args = {sourcedir, commandFile};
         DirectoryProcessor.main(args);
     }
+
+    @org.junit.Test
+    public void course_test_22() {
+        String sourcedir = "./course_tests/basic_source_directory/";
+        String commandFile = "./course_tests/basic_filters/filter022.flt";
+        String[] args = {sourcedir, commandFile};
+        DirectoryProcessor.main(args);
+    }
 }

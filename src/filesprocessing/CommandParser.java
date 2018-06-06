@@ -37,8 +37,9 @@ public class CommandParser {
     /* The number of the current line. */
     private int lineCounter;
 
-    /* A list of Type I warnings thrown when parsing the command file. */
-    private LinkedList<String> warnings;
+    /* Filter and Order warnings in the current section. */
+    private String filterWarning;
+    private String orderWarning;
 
     /* A list of sections parsed from the command file. */
     private LinkedList<Section> sections;
@@ -51,7 +52,6 @@ public class CommandParser {
      */
     public CommandParser(String filepath) throws CommandFileNotFoundException, InvalidCommandFileException,
             MissingSubsectionException {
-        warnings = new LinkedList<>();
         lineCounter = 1;
         try {
             lineReader = new BufferedReader(new FileReader(filepath));
@@ -75,13 +75,6 @@ public class CommandParser {
      */
     public LinkedList<Section> getSections() {
         return sections;
-    }
-
-    /**
-     * @return The warnings list.
-     */
-    public LinkedList<String> getWarnings() {
-        return warnings;
     }
 
     /*
@@ -111,22 +104,22 @@ public class CommandParser {
             InvalidCommandFileException {
         LinkedList<Section> sections = new LinkedList<>();
         while (currLine != null) {
-            //System.out.println("Expecting FILTER, getting: " + currLine);
             if (!currLine.equals("FILTER")) {
                 throw new MissingSubsectionException(FILTER_SUBSECTION_MISSING_MSG);
             }
             advanceLine();
-            //System.out.println("Expecting filter line, getting: " + currLine);
             Filter currFilter = parseFilterLine();
             advanceLine();
-            //System.out.println("Expecting ORDER, getting: " + currLine);
             if (currLine == null || !currLine.equals("ORDER")) {
                 throw new MissingSubsectionException(ORDER_SUBSECTION_MISSING_MSG);
             }
             advanceLine();
-            //System.out.println("Expecting order line, getting: " + currLine);
             Order currOrder = parseOrderLine();
             Section currSection = new Section(currFilter, currOrder);
+            currSection.addWarning(filterWarning);
+            currSection.addWarning(orderWarning);
+            filterWarning = null;
+            orderWarning = null;
             sections.add(currSection);
         }
         return sections;
@@ -141,7 +134,7 @@ public class CommandParser {
             return FilterFactory.generateFilter(currLine);
         }
         catch (Type1ErrorException e) {
-            warnings.add("Warning in line " + Integer.toString(lineCounter));
+            filterWarning = "Warning in line " + Integer.toString(lineCounter);
             return new AllFilter();
         }
     }
@@ -184,7 +177,7 @@ public class CommandParser {
             }
         }
         catch (Type1ErrorException e) {
-            warnings.add("Warning in line " + Integer.toString(lineCounter));
+            orderWarning = "Warning in line " + Integer.toString(lineCounter);
             advanceLine();
             return new AbsOrder();
         }

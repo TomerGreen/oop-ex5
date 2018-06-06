@@ -3,6 +3,8 @@ package filesprocessing;
 import filesprocessing.filters.Filter;
 import filesprocessing.orders.Order;
 
+import java.util.LinkedList;
+
 /**
  * Implements a command section, containing a filter and an order clause.
  */
@@ -14,6 +16,9 @@ public class Section {
     /** The order object */
     private Order order;
 
+    /** The section's warnings. */
+    private LinkedList<String> warnings;
+
     /**
      * Creates a section object.
      * @param filter The section's filter.
@@ -22,6 +27,7 @@ public class Section {
     public Section(Filter filter, Order order) {
         this.filter = filter;
         this.order = order;
+        warnings = new LinkedList<>();
     }
 
     /**
@@ -38,4 +44,18 @@ public class Section {
         return order;
     }
 
+    /**
+     * Adds a warning to the list.
+     * @param warning The warning message.
+     */
+    public void addWarning(String warning) {
+        warnings.add(warning);
+    }
+
+    /**
+     * @return The section warnings.
+     */
+    public LinkedList<String> getWarnings() {
+        return warnings;
+    }
 }
