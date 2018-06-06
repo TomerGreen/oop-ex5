@@ -67,7 +67,6 @@ public class CommandParser {
         catch (IOException e) {
             throw new InvalidCommandFileException();
         }
-        System.out.println("Creating sections...");
         sections = parseCommandFile();
     }
 
@@ -112,20 +111,16 @@ public class CommandParser {
             InvalidCommandFileException {
         LinkedList<Section> sections = new LinkedList<>();
         while (currLine != null) {
-            System.out.println("Expecting FILTER, getting: " + currLine);
             if (!currLine.equals("FILTER")) {
                 throw new MissingSubsectionException(FILTER_SUBSECTION_MISSING_MSG);
             }
             advanceLine();
-            System.out.println("Expecting filter line, getting: " + currLine);
             Filter currFilter = parseFilterLine();
             advanceLine();
-            System.out.println("Expecting ORDER, getting: " + currLine);
             if (!currLine.equals("ORDER")) {
                 throw new MissingSubsectionException(ORDER_SUBSECTION_MISSING_MSG);
             }
             advanceLine();
-            System.out.println("Expecting order line, getting: " + currLine);
             Order currOrder = parseOrderLine();
             Section currSection = new Section(currFilter, currOrder);
             sections.add(currSection);
@@ -163,7 +158,6 @@ public class CommandParser {
                 // Current line is invalid order name.
                 if (firstNextLine == null) {
                     order = OrderFactory.generateOrder(currLine);
-                    advanceLine();
                 }
                 // Current line could be subsection title or invalid order name.
                 else if (firstNextLine == "FILTER") {
@@ -174,7 +168,6 @@ public class CommandParser {
                     // Current line is invalid order name.
                     else {
                         order = OrderFactory.generateOrder(currLine);
-                        advanceLine();
                     }
                 }
                 // Current line is subsection title.
@@ -184,13 +177,13 @@ public class CommandParser {
             }
             else {
                 order = OrderFactory.generateOrder(currLine);
-                advanceLine();
             }
         }
         catch (Type1ErrorException e) {
             warnings.add("Warning in line " + Integer.toString(lineCounter));
             return new AbsOrder();
         }
+        advanceLine();
         return order;
     }
 
