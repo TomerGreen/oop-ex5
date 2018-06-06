@@ -111,16 +111,20 @@ public class CommandParser {
             InvalidCommandFileException {
         LinkedList<Section> sections = new LinkedList<>();
         while (currLine != null) {
+            //System.out.println("Expecting FILTER, getting: " + currLine);
             if (!currLine.equals("FILTER")) {
                 throw new MissingSubsectionException(FILTER_SUBSECTION_MISSING_MSG);
             }
             advanceLine();
+            //System.out.println("Expecting filter line, getting: " + currLine);
             Filter currFilter = parseFilterLine();
             advanceLine();
+            //System.out.println("Expecting ORDER, getting: " + currLine);
             if (!currLine.equals("ORDER")) {
                 throw new MissingSubsectionException(ORDER_SUBSECTION_MISSING_MSG);
             }
             advanceLine();
+            //System.out.println("Expecting order line, getting: " + currLine);
             Order currOrder = parseOrderLine();
             Section currSection = new Section(currFilter, currOrder);
             sections.add(currSection);
@@ -160,7 +164,7 @@ public class CommandParser {
                     order = OrderFactory.generateOrder(currLine);
                 }
                 // Current line could be subsection title or invalid order name.
-                else if (firstNextLine == "FILTER") {
+                else if (firstNextLine.equals("FILTER")) {
                     // Current line is subsection title.
                     if (secondNextLine == null) {
                         return new AbsOrder();
@@ -181,8 +185,10 @@ public class CommandParser {
         }
         catch (Type1ErrorException e) {
             warnings.add("Warning in line " + Integer.toString(lineCounter));
+            advanceLine();
             return new AbsOrder();
         }
+        //System.out.println("Advancing past order line");
         advanceLine();
         return order;
     }
