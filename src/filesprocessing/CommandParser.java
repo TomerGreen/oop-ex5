@@ -18,8 +18,6 @@ import java.util.LinkedList;
  */
 public class CommandParser  implements FileFilter {
 
-    private static final String FILTER_SUBSECTION_TITLE = "FILTER";
-    private static final String ORDER_SUBSECTION_TITLE = "ORDER";
     private static final String FILE_NOT_FOUND_MSG = "Could not find command file with path ";
     private static final String FILTER_SUBSECTION_MISSING_MSG = "FILTER sub-section missing.";
     private static final String ORDER_SUBSECTION_MISSING_MSG = "ORDER sub-section missing.";
@@ -29,6 +27,12 @@ public class CommandParser  implements FileFilter {
 
     /* The current line being read. */
     private String currLine;
+
+    /* The line after the current line. */
+    private String firstNextLine;
+
+    /* Two lines ahead of the current line. */
+    private String secondNextLine;
 
     /* The number of the current line. */
     private int lineCounter;
@@ -48,14 +52,21 @@ public class CommandParser  implements FileFilter {
     public CommandParser(String filepath) throws CommandFileNotFoundException, InvalidCommandFileException,
             MissingSubsectionException {
         warnings = new LinkedList<>();
-        lineCounter = 0;
+        lineCounter = 1;
         try {
             lineReader = new BufferedReader(new FileReader(filepath));
         }
         catch (FileNotFoundException e) {
             throw new CommandFileNotFoundException(FILE_NOT_FOUND_MSG + filepath);
         }
-        this.advanceLine();
+        try {
+            currLine = lineReader.readLine();
+            firstNextLine = lineReader.readLine();
+            secondNextLine = lineReader.readLine();
+        }
+        catch (IOException e) {
+            throw new InvalidCommandFileException();
+        }
         sections = parseCommandFile();
     }
 
@@ -93,11 +104,12 @@ public class CommandParser  implements FileFilter {
      */
     private void advanceLine() throws InvalidCommandFileException {
         try {
-            currLine = lineReader.readLine();
+            currLine = firstNextLine;
+            firstNextLine = secondNextLine;
+            secondNextLine = lineReader.readLine();
         }
         catch (IOException e) {
-            throw new InvalidCommandFileException("ERROR: Could not read line " + Integer.toString(lineCounter)
-                    + " in command file.");
+            throw new InvalidCommandFileException();
         }
         lineCounter++;
     }
@@ -113,13 +125,13 @@ public class CommandParser  implements FileFilter {
             InvalidCommandFileException {
         LinkedList<Section> sections = new LinkedList<>();
         while (currLine != null) {
-            if (!currLine.equals(FILTER_SUBSECTION_TITLE)) {
+            if (!currLine.equals("FILTER")) {
                 throw new MissingSubsectionException(FILTER_SUBSECTION_MISSING_MSG);
             }
             advanceLine();
             Filter currFilter = parseFilterLine();
             advanceLine();
-            if (!currLine.equals(ORDER_SUBSECTION_TITLE)) {
+            if (!currLine.equals("ORDER")) {
                 throw new MissingSubsectionException(ORDER_SUBSECTION_MISSING_MSG);
             }
             advanceLine();
@@ -150,13 +162,43 @@ public class CommandParser  implements FileFilter {
      * @return A corresponding order object.
      */
     private Order parseOrderLine() {
+        Order order;
         try {
-            return OrderFactory.generateOrder(currLine);
+            // Order title is last line in file.
+            if (currLine == null) {
+                return new AbsOrder();
+            }
+            // Current line could be a filter title or an invalid order name.
+            else if (currLine.equals("FILTER")) {
+                // Current line is invalid order name.
+                if (firstNextLine == null) {
+                    order = OrderFactory.generateOrder(currLine);
+                }
+                // Current line could be subsection title or invalid order name.
+                else if (firstNextLine == "FILTER") {
+                    // Current line is subsection title.
+                    if (secondNextLine == null) {
+                        return new AbsOrder();
+                    }
+                    // Current line is invalid order name.
+                    else {
+                        order = OrderFactory.generateOrder(currLine);
+                    }
+                }
+                // Current line is subsection title.
+                else {
+                    return new AbsOrder();
+                }
+            }
+            else {
+                order = OrderFactory.generateOrder(currLine);
+            }
         }
         catch (Type1ErrorException e) {
             warnings.add("Warning in line " + Integer.toString(lineCounter));
             return new AbsOrder();
         }
+        return order;
     }
 
     /* Thrown when an ORDER or FILTER line does not appear where it should. */
@@ -166,8 +208,9 @@ public class CommandParser  implements FileFilter {
 
     /* Thrown when a line in the command file cannot be read by the FileReader. */
     private class InvalidCommandFileException extends Type2ErrorException {
-        public InvalidCommandFileException(String message) {
-            super(message);
+        public InvalidCommandFileException() {
+            super("ERROR: Could not read line " + Integer.toString(lineCounter)
+                    + " in command file.");
         }
     }
 

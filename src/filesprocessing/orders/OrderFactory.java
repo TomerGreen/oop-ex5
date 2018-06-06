@@ -12,10 +12,7 @@ public class OrderFactory {
 	private static final int REVERSE_INDEX = 1;
 	private static final String SEPARATE_SIGN = "#";
 
-	public static Order generateOrder(String line) throws InvalidOrderNameException, MissingOrderLineException{
-		if (line == null) {
-			throw new MissingOrderLineException();
-		}
+	public static Order generateOrder(String line) throws InvalidOrderNameException {
 		String[] orderFields = line.split(SEPARATE_SIGN);
 		Order order;
 		if(orderFields[ORDER_TYPE_INDEX].equals("abs")){
@@ -35,9 +32,6 @@ public class OrderFactory {
 		}
 		return order;
 	}
-
-	/* Thrown when the order line being parsed is null */
-	private static class MissingOrderLineException extends Type1ErrorException {}
 
 	/* Thrown when the order name does not match existing order. */
 	private static class InvalidOrderNameException extends Type1ErrorException {}
