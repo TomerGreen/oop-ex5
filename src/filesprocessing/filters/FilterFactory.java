@@ -61,6 +61,9 @@ public class FilterFactory {
         else if (filterFields[NAME_INDEX].equals("hidden")) {
             filter = new HiddenFilter(filterFields[FIRST_VALUE_INDEX]);
         }
+        else if (filterFields[NAME_INDEX].equals("all")) {
+            filter = new AllFilter();
+        }
         else {
             throw new InvalidFilterNameException();
         }
