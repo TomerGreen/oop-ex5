@@ -58,7 +58,9 @@ public class DirectoryProcessor {
             for (Section section : parser.getSections()) {
                 LinkedList<File> processedFiles = getProcessedFileList(args[0], section);
                 for (File file : processedFiles) {
-                    System.out.println(file.getName());
+                    if (file.isFile()) {
+                        System.out.println(file.getName());
+                    }
                 }
             }
         }
