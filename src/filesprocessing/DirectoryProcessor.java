@@ -11,6 +11,8 @@ import java.util.LinkedList;
  */
 public class DirectoryProcessor {
 
+    private static final String DIR_NOT_FOUND_MSG = "Could not find source directory.";
+
     /**
      * Creates a processor object.
      */
@@ -22,7 +24,12 @@ public class DirectoryProcessor {
      * @param sourceDirPath The path of the directory which contains the files.
      * @return An ordered list of files.
      */
-    private static LinkedList<File> getProcessedFileList(String sourceDirPath, Section section) {
+    private static LinkedList<File> getProcessedFileList(String sourceDirPath, Section section)
+            throws SourceDirectoryNotFoundException {
+        File dir = new File(sourceDirPath);
+        if (!dir.isDirectory()) {
+            throw new SourceDirectoryNotFoundException();
+        }
         File[] fileArray = new File(sourceDirPath).listFiles(section.getFilter());
         LinkedList<File> fileList = new LinkedList<>();
         for (File file : fileArray) {
@@ -30,6 +37,11 @@ public class DirectoryProcessor {
         }
         fileList.sort(section.getOrder());
         return fileList;
+    }
+
+    /* Thrown when the command file is not found. */
+    private static class SourceDirectoryNotFoundException extends Type2ErrorException {
+        public SourceDirectoryNotFoundException() { super(DIR_NOT_FOUND_MSG); }
     }
 
     /**
