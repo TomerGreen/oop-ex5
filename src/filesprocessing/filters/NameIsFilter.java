@@ -13,6 +13,6 @@ public class NameIsFilter extends NameFilter {
 
     @Override
     public boolean accept(File file) {
-        return file.getName() == searchString;
+        return file.getName().equals(searchString);
     }
 }
