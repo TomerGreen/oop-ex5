@@ -34,42 +34,36 @@ public class FilterFactory {
         String[] filterFields = line.split(COMMAND_DELIMITER);
         Filter filter;
 
-        if (filterFields[NAME_INDEX].equals("greater_than")) {
-             filter = new SizeGreaterThanFilter(Double.parseDouble(filterFields[FIRST_VALUE_INDEX]));
+        try {
+            if (filterFields[NAME_INDEX].equals("greater_than")) {
+                filter = new SizeGreaterThanFilter(Double.parseDouble(filterFields[FIRST_VALUE_INDEX]));
+            } else if (filterFields[NAME_INDEX].equals("between")) {
+                filter = new SizeBetweenFilter(Double.parseDouble(filterFields[FIRST_VALUE_INDEX]),
+                        Double.parseDouble(filterFields[SECOND_VALUE_INDEX]));
+            } else if (filterFields[NAME_INDEX].equals("smaller_than")) {
+                filter = new SizeSmallerThanFilter(Double.parseDouble(filterFields[FIRST_VALUE_INDEX]));
+            } else if (filterFields[NAME_INDEX].equals("file")) {
+                filter = new NameIsFilter(filterFields[FIRST_VALUE_INDEX]);
+            } else if (filterFields[NAME_INDEX].equals("contains")) {
+                filter = new NameContainsFilter(filterFields[FIRST_VALUE_INDEX]);
+            } else if (filterFields[NAME_INDEX].equals("prefix")) {
+                filter = new PrefixIsFilter(filterFields[FIRST_VALUE_INDEX]);
+            } else if (filterFields[NAME_INDEX].equals("suffix")) {
+                filter = new SuffixIsFilter(filterFields[FIRST_VALUE_INDEX]);
+            } else if (filterFields[NAME_INDEX].equals("writable")) {
+                filter = new WritableFilter(filterFields[FIRST_VALUE_INDEX]);
+            } else if (filterFields[NAME_INDEX].equals("executable")) {
+                filter = new ExecutableFilter(filterFields[FIRST_VALUE_INDEX]);
+            } else if (filterFields[NAME_INDEX].equals("hidden")) {
+                filter = new HiddenFilter(filterFields[FIRST_VALUE_INDEX]);
+            } else if (filterFields[NAME_INDEX].equals("all")) {
+                filter = new AllFilter();
+            } else {
+                throw new InvalidFilterNameException();
+            }
         }
-        else if (filterFields[NAME_INDEX].equals("between")) {
-            filter = new SizeBetweenFilter(Double.parseDouble(filterFields[FIRST_VALUE_INDEX]),
-                    Double.parseDouble(filterFields[SECOND_VALUE_INDEX]));
-        }
-        else if (filterFields[NAME_INDEX].equals("smaller_than")) {
-            filter = new SizeSmallerThanFilter(Double.parseDouble(filterFields[FIRST_VALUE_INDEX]));
-        }
-        else if (filterFields[NAME_INDEX].equals("file")) {
-            filter = new NameIsFilter(filterFields[FIRST_VALUE_INDEX]);
-        }
-        else if (filterFields[NAME_INDEX].equals("contains")) {
-            filter = new NameContainsFilter(filterFields[FIRST_VALUE_INDEX]);
-        }
-        else if (filterFields[NAME_INDEX].equals("prefix")) {
-            filter = new PrefixIsFilter(filterFields[FIRST_VALUE_INDEX]);
-        }
-        else if (filterFields[NAME_INDEX].equals("suffix")) {
-            filter = new SuffixIsFilter(filterFields[FIRST_VALUE_INDEX]);
-        }
-        else if (filterFields[NAME_INDEX].equals("writable")) {
-            filter = new WritableFilter(filterFields[FIRST_VALUE_INDEX]);
-        }
-        else if (filterFields[NAME_INDEX].equals("executable")) {
-            filter = new ExecutableFilter(filterFields[FIRST_VALUE_INDEX]);
-        }
-        else if (filterFields[NAME_INDEX].equals("hidden")) {
-            filter = new HiddenFilter(filterFields[FIRST_VALUE_INDEX]);
-        }
-        else if (filterFields[NAME_INDEX].equals("all")) {
-            filter = new AllFilter();
-        }
-        else {
-            throw new InvalidFilterNameException();
+        catch (ArrayIndexOutOfBoundsException e) {
+            throw new IncorrectNumberOfValuesException();
         }
 
         if (filterFields.length > filter.getNumFields() + 1
