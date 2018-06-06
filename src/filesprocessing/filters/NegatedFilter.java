@@ -8,8 +8,6 @@ import java.io.File;
  */
 public class NegatedFilter extends Filter {
 
-    private static final int NUM_FIELDS = 0;
-
     /**
      * The filter to be negated.
      */
@@ -20,7 +18,7 @@ public class NegatedFilter extends Filter {
      * @param original The filter to be negated.
      */
     public NegatedFilter(Filter original) {
-        numFields = NUM_FIELDS;
+        numFields = original.getNumFields()+1;
         originalFilter = original;
     }
 

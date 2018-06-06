@@ -76,8 +76,16 @@ public class FilterFactory {
                 && filterFields[filter.getNumFields() + 1].equals("NOT")) {
             filter = new NegatedFilter(filter);
         }
+
+        if (filterFields.length != filter.getNumFields()+1) {
+            throw new IncorrectNumberOfValuesException();
+        }
+
         return filter;
     }
+
+    /* Thrown when the filter line is null */
+    private static class IncorrectNumberOfValuesException extends Type1ErrorException {}
 
     /* Thrown when the filter line is null */
     private static class MissingFilterLineException extends Type1ErrorException {}
