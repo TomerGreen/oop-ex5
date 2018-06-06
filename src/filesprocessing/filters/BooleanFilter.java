@@ -7,7 +7,7 @@ import filesprocessing.Type1ErrorException;
  */
 public abstract class BooleanFilter extends Filter {
 
-    protected static int numFields = 0;
+    private static final int NUM_FIELDS = 1;
 
     /**
      * Whether the filter value is YES.
@@ -20,6 +20,7 @@ public abstract class BooleanFilter extends Filter {
      * @throws InvalidBooleanFilterValueException When the given parameter is not "YES" or "NO"
      */
     public BooleanFilter(String value) throws InvalidBooleanFilterValueException {
+        numFields = NUM_FIELDS;
         if (value == "YES") {
             parameter = true;
         }

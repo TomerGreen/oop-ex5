@@ -7,7 +7,7 @@ import java.io.File;
  */
 public class SizeGreaterThanFilter extends SizeFilter {
 
-    protected static int numFields = 1;
+    private static final int NUM_FIELDS = 1;
 
     /**
      * Files strictly over this number of KB will be accepted.
@@ -19,6 +19,7 @@ public class SizeGreaterThanFilter extends SizeFilter {
      * @param value The size in KB over which files will be accepted.
      */
     public SizeGreaterThanFilter(double value) throws InvalidSizeLimitException {
+        numFields = NUM_FIELDS;
         if (value >= 0) {
             limit = value;
         }

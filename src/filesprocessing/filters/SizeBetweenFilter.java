@@ -7,7 +7,7 @@ import java.io.File;
  */
 public class SizeBetweenFilter extends SizeFilter{
 
-    protected static int numFields = 2;
+    private static final int NUM_FIELDS = 2;
 
     /**
      * Files under this size in KB will not be accepted.
@@ -26,6 +26,7 @@ public class SizeBetweenFilter extends SizeFilter{
      * @throws InvalidSizeLimitException
      */
     public SizeBetweenFilter(double lower, double upper) throws InvalidSizeLimitException {
+        numFields = NUM_FIELDS;
         if (lower < 0 || upper < 0 || upper < lower) {
             throw new InvalidSizeLimitException();
         }
