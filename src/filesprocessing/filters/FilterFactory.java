@@ -66,7 +66,7 @@ public class FilterFactory {
             throw new IncorrectNumberOfValuesException();
         }
 
-        if (filterFields.length > filter.getNumFields() + 1
+        if (filterFields.length == filter.getNumFields() + 2
                 && filterFields[filter.getNumFields() + 1].equals("NOT")) {
             filter = new NegatedFilter(filter);
         }
@@ -74,11 +74,10 @@ public class FilterFactory {
         if (filterFields.length != filter.getNumFields()+1) {
             throw new IncorrectNumberOfValuesException();
         }
-
         return filter;
     }
 
-    /* Thrown when the filter line is null */
+    /* Thrown when there is an incorrect num of fields. */
     private static class IncorrectNumberOfValuesException extends Type1ErrorException {}
 
     /* Thrown when the filter line is null */

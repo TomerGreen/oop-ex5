@@ -101,4 +101,20 @@ public class DirectoryProcessorTest {
         String[] args = {sourcedir, commandFile};
         DirectoryProcessor.main(args);
     }
+
+    @org.junit.Test
+    public void test11_boolean_simple() {
+        String sourcedir = "./tester_files/files_to_filter/simple/";
+        String commandFile = "./tester_files/tests/test11_writable_hidden_executable/commands.txt";
+        String[] args = {sourcedir, commandFile};
+        DirectoryProcessor.main(args);
+    }
+
+    @org.junit.Test
+    public void test11_boolean_complex() {
+        String sourcedir = "./tester_files/files_to_filter/complex/";
+        String commandFile = "./tester_files/tests/test11_writable_hidden_executable/commands.txt";
+        String[] args = {sourcedir, commandFile};
+        DirectoryProcessor.main(args);
+    }
 }

@@ -21,10 +21,10 @@ public abstract class BooleanFilter extends Filter {
      */
     public BooleanFilter(String value) throws InvalidBooleanFilterValueException {
         numFields = NUM_FIELDS;
-        if (value == "YES") {
+        if (value.equals("YES")) {
             parameter = true;
         }
-        else if (value == "NO") {
+        else if (value.equals("NO")) {
             parameter = false;
         }
         else {

@@ -13,7 +13,7 @@ public class WritableFilter extends BooleanFilter {
      * @throws InvalidBooleanFilterValueException
      */
     public WritableFilter(String value) throws InvalidBooleanFilterValueException {
-            super(value);
+        super(value);
     }
 
     public boolean accept(File file) {
