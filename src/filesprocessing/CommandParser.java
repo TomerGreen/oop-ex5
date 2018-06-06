@@ -16,7 +16,7 @@ import java.util.LinkedList;
  * A parser object is associated with a file via a BufferedReader object, and saves
  * a linked list of sections and warnings.
  */
-public class CommandParser  implements FileFilter {
+public class CommandParser {
 
     private static final String FILE_NOT_FOUND_MSG = "Could not find command file with path ";
     private static final String FILTER_SUBSECTION_MISSING_MSG = "FILTER sub-section missing.";
@@ -68,20 +68,6 @@ public class CommandParser  implements FileFilter {
             throw new InvalidCommandFileException();
         }
         sections = parseCommandFile();
-    }
-
-    @Override
-    public boolean accept(File file) {
-        if (!file.isFile()) {
-            return false;
-        }
-        for (Section section : sections) {
-            // If the section's filter doesn't accept the file, return false.
-            if (!section.getFilter().accept(file)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

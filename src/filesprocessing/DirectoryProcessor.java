@@ -22,15 +22,13 @@ public class DirectoryProcessor {
      * @param sourceDirPath The path of the directory which contains the files.
      * @return An ordered list of files.
      */
-    private static LinkedList<File> getProcessedFileList(String sourceDirPath, CommandParser commandParser) {
-        File[] fileArray = new File(sourceDirPath).listFiles(commandParser);
+    private static LinkedList<File> getProcessedFileList(String sourceDirPath, Section section) {
+        File[] fileArray = new File(sourceDirPath).listFiles(section.getFilter());
         LinkedList<File> fileList = new LinkedList<>();
         for (File file : fileArray) {
             fileList.add(file);
         }
-        for (Section section : commandParser.getSections()) {
-            fileList.sort(section.getOrder());
-        }
+        fileList.sort(section.getOrder());
         return fileList;
     }
 
@@ -42,12 +40,14 @@ public class DirectoryProcessor {
     public static void main(String[] args) {
         try {
             CommandParser parser = new CommandParser(args[1]);
-            LinkedList<File> processedFiles = getProcessedFileList(args[0], parser);
             for (String warning : parser.getWarnings()) {
                 System.err.println(warning);
             }
-            for (File file : processedFiles) {
-                System.out.println(file.getName());
+            for (Section section : parser.getSections()) {
+                LinkedList<File> processedFiles = getProcessedFileList(args[0], section);
+                for (File file : processedFiles) {
+                    System.out.println(file.getName());
+                }
             }
         }
         catch (Type2ErrorException e) {
