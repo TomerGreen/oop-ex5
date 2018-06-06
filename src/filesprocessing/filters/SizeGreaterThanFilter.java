@@ -29,7 +29,7 @@ public class SizeGreaterThanFilter extends SizeFilter {
     }
 
     public boolean accept(File file) {
-        double fileSize = file.length()/1024;
+        double fileSize = (double) file.length()/1024;
         return fileSize > limit;
     }
 }

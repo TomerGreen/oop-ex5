@@ -37,7 +37,7 @@ public class SizeBetweenFilter extends SizeFilter{
     }
 
     public boolean accept(File file) {
-        double fileSize = file.length()/1000;
+        double fileSize = (double) file.length()/1024;
         return (fileSize >= lowerBoundary && fileSize <= upperBoundary);
     }
 }
