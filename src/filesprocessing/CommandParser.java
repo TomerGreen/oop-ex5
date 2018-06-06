@@ -112,19 +112,17 @@ public class CommandParser  implements FileFilter {
     public LinkedList<Section> parseCommandFile() throws MissingSubsectionException,
             InvalidCommandFileException {
         LinkedList<Section> sections = new LinkedList<>();
-        if (currLine == null) {
-            throw new MissingSubsectionException(FILTER_SUBSECTION_MISSING_MSG);
-        }
         while (currLine != null) {
-            if (currLine.equals(FILTER_SUBSECTION_TITLE)) {
+            if (!currLine.equals(FILTER_SUBSECTION_TITLE)) {
                 throw new MissingSubsectionException(FILTER_SUBSECTION_MISSING_MSG);
             }
             advanceLine();
             Filter currFilter = parseFilterLine();
             advanceLine();
-            if (currLine.equals(ORDER_SUBSECTION_TITLE)) {
+            if (!currLine.equals(ORDER_SUBSECTION_TITLE)) {
                 throw new MissingSubsectionException(ORDER_SUBSECTION_MISSING_MSG);
             }
+            advanceLine();
             Order currOrder = parseOrderLine();
             Section currSection = new Section(currFilter, currOrder);
             sections.add(currSection);
