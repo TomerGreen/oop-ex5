@@ -1,2 +1,2 @@
-Warning in line 2
-Warning in line 4
+ERROR: ORDER sub-section missing.
+

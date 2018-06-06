@@ -11,7 +11,7 @@ import java.util.LinkedList;
  */
 public class DirectoryProcessor {
 
-    /**
+    /*
      * A parser object that, once created, holds the parsing warnings and parsed sections.
      */
     private CommandParser commandParser;
@@ -60,7 +60,6 @@ public class DirectoryProcessor {
         }
         catch (Type2ErrorException e) {
             System.err.println(e.getMessage());
-            return;
         }
     }
 }

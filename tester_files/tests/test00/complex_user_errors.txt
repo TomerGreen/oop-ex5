@@ -1,0 +1,5 @@
+Exception in thread "main" java.lang.NullPointerException
+	at filesprocessing.CommandParser.accept(CommandParser.java:67)
+	at java.io.File.listFiles(File.java:1291)
+	at filesprocessing.DirectoryProcessor.getProcessedFileList(DirectoryProcessor.java:34)
+	at filesprocessing.DirectoryProcessor.main(DirectoryProcessor.java:53)
