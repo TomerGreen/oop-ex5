@@ -120,7 +120,7 @@ public class CommandParser {
             Filter currFilter = parseFilterLine();
             advanceLine();
             //System.out.println("Expecting ORDER, getting: " + currLine);
-            if (!currLine.equals("ORDER")) {
+            if (currLine == null || !currLine.equals("ORDER")) {
                 throw new MissingSubsectionException(ORDER_SUBSECTION_MISSING_MSG);
             }
             advanceLine();

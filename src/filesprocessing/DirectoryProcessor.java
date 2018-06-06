@@ -30,10 +30,23 @@ public class DirectoryProcessor {
         if (!dir.isDirectory()) {
             throw new SourceDirectoryNotFoundException();
         }
+        File[] dummyFileArray = new File(sourceDirPath).listFiles();
+        for (File file : dummyFileArray) {
+            if (file.isHidden()) {
+                System.out.println("Found hidden file: " + file.getName());
+            }
+            if (file.canExecute()) {
+                System.out.println("Found executable file: " + file.getName());
+            }
+            //System.out.println("File: " + file.getName() + " writable: " + file.canWrite() + " executable: " +
+            //file.canExecute() + " hidden: " + file.isHidden());
+        }
         File[] fileArray = new File(sourceDirPath).listFiles(section.getFilter());
         LinkedList<File> fileList = new LinkedList<>();
-        for (File file : fileArray) {
-            fileList.add(file);
+        if (fileArray != null) {
+            for (int i = 0; i < fileArray.length; i++) {
+                fileList.add(fileArray[i]);
+            }
         }
         fileList.sort(section.getOrder());
         return fileList;
