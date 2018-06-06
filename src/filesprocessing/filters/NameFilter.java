@@ -5,16 +5,17 @@ package filesprocessing.filters;
  */
 public abstract class NameFilter extends Filter {
 
+    private static final int NUM_FIELDS = 1;
+
     /** The string to be searched in the file's name or extension. */
     protected String searchString;
-
-    protected static int numFields = 1;
 
     /**
      * Initializes the name filter search string field.
      * @param value The searched value.
      */
     public NameFilter(String value) {
+        numFields = NUM_FIELDS;
         searchString = value;
     }
 }

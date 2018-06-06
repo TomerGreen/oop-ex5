@@ -27,6 +27,10 @@ public class FilterFactory {
      */
     public static Filter generateFilter(String line) throws Type1ErrorException {
 
+        if (line == null) {
+            throw new MissingFilterLineException();
+        }
+
         String[] filterFields = line.split(COMMAND_DELIMITER);
         Filter filter;
 
@@ -61,6 +65,9 @@ public class FilterFactory {
         else if (filterFields[NAME_INDEX].equals("hidden")) {
             filter = new HiddenFilter(filterFields[FIRST_VALUE_INDEX]);
         }
+        else if (filterFields[NAME_INDEX].equals("all")) {
+            filter = new AllFilter();
+        }
         else {
             throw new InvalidFilterNameException();
         }
@@ -71,6 +78,9 @@ public class FilterFactory {
         }
         return filter;
     }
+
+    /* Thrown when the filter line is null */
+    private static class MissingFilterLineException extends Type1ErrorException {}
 
     /* Thrown when the filter name does not match existing filters. */
     private static class InvalidFilterNameException extends Type1ErrorException {}

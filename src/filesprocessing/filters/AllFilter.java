@@ -7,12 +7,12 @@ import java.io.File;
  */
 public class AllFilter extends Filter {
 
-    protected static int numFields = 0;
+    private static final int NUM_FIELDS = 0;
 
     /**
      * Creates an All filter.
      */
-    public AllFilter() {}
+    public AllFilter() { numFields = NUM_FIELDS;}
 
     public boolean accept(File file) {
         return true;

@@ -42,43 +42,42 @@ public class CommandParser  implements FileFilter {
     /**
      * Creates a parser object.
      * @param filepath The associated text file.
-//     * @throws CommandFileNotFoundException When the command file is not found.
-//     * @throws InvalidCommandFileException When one of the lines in the command file cannot be read.
+     * @throws CommandFileNotFoundException When the command file is not found.
+     * @throws InvalidCommandFileException When one of the lines in the command file cannot be read.
      */
-    public CommandParser(String filepath) {
-            //throws CommandFileNotFoundException, InvalidCommandFileException,
-            //MissingSubsectionException {
-        warnings = new LinkedList<>();
-        sections = new LinkedList<>();
-//        lineCounter = 0;
-////        try {
-////            lineReader = new BufferedReader(new FileReader(filepath));
-////        }
-////        catch (FileNotFoundException e) {
-////            throw new CommandFileNotFoundException(FILE_NOT_FOUND_MSG + filepath);
-////        }
-////        this.advanceLine();
-//        sections = parseCommandFile();
-//    }
+    public CommandParser(String filepath) throws CommandFileNotFoundException,
+            InvalidCommandFileException, MissingSubsectionException {
+            warnings = new LinkedList<>();
+            sections = new LinkedList<>();
+            lineCounter = 0;
+            try {
+                lineReader = new BufferedReader(new FileReader(filepath));
+            } catch (FileNotFoundException e) {
+                throw new CommandFileNotFoundException(FILE_NOT_FOUND_MSG + filepath);
+            }
+            this.advanceLine();
+            sections = parseCommandFile();
 
-//    @Override
-//    public boolean accept(File file) {
-//        if (!file.isFile()) {
-//            return false;
-//        }
-//        for (Section section : sections) {
-//            // If the section's filter doesn't accept the file, return false.
-//            if (!section.getFilter().accept(file)) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
+    }
+
+    @Override
+    public boolean accept(File file) {
+        if (!file.isFile()) {
+            return false;
+        }
+        for (Section section : sections) {
+            // If the section's filter doesn't accept the file, return false.
+            if (!section.getFilter().accept(file)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * @return The parsed sections list.
      */
-    public LinkedList<Section> getSections() {
+    public LinkedList<Section> getSections(){
         return sections;
     }
 
@@ -93,16 +92,16 @@ public class CommandParser  implements FileFilter {
      * Advances to the next line.
      * @throws InvalidCommandFileException
      */
-//    private void advanceLine() throws InvalidCommandFileException {
-//        try {
-//            currLine = lineReader.readLine();
-//        }
-//        catch (IOException e) {
-//            throw new InvalidCommandFileException("ERROR: Could not read line " + Integer.toString(lineCounter)
-//                    + " in command file.");
-//        }
-//        lineCounter++;
-//    }
+    private void advanceLine() throws InvalidCommandFileException {
+        try {
+            currLine = lineReader.readLine();
+        }
+        catch (IOException e) {
+            throw new InvalidCommandFileException("ERROR: Could not read line " + Integer.toString(lineCounter)
+                    + " in command file.");
+        }
+        lineCounter++;
+    }
 
     /**
      * Parses the associated command file into a linked list of Section objects.
@@ -110,43 +109,29 @@ public class CommandParser  implements FileFilter {
      * @return The Section list.
      * @throws MissingSubsectionException
      * @throws InvalidCommandFileException
-     */
-    public LinkedList<Section> parseCommandFile(String filepath) throws CommandFileNotFoundException,
-            MissingSubsectionException, InvalidCommandFileException {
-        boolean parseNextSection = true;
-        String filterName;
-        String orderName;
-        this.lineCounter = 0;
-        int filterLine;
-        int orderLine;
-        try {
-            lineReader = new BufferedReader(new FileReader(filepath));
-            currLine = lineReader.readLine();
-        } catch (FileNotFoundException e) {
-            throw new CommandFileNotFoundException(FILE_NOT_FOUND_MSG + filepath);
-        }
+     **/
+    public LinkedList<Section> parseCommandFile() throws MissingSubsectionException,
+            InvalidCommandFileException {
+        LinkedList<Section> sections = new LinkedList<>();
+        while (currLine != null) {
+            if (!currLine.equals(FILTER_SUBSECTION_TITLE)) {
+                throw new MissingSubsectionException(FILTER_SUBSECTION_MISSING_MSG);
+            }
+            advanceLine();
+            Filter currFilter = parseFilterLine();
+            advanceLine();
+            if (!currLine.equals(ORDER_SUBSECTION_TITLE)) {
+                throw new MissingSubsectionException(ORDER_SUBSECTION_MISSING_MSG);
+            }
+            advanceLine();
+            Order currOrder = parseOrderLine();
+            Section currSection = new Section(currFilter, currOrder);
+            sections.add(currSection);
+            advanceLine();
+            }
+            return sections;
     }
-//        LinkedList<Section> sections = new LinkedList<>();
-//        if (currLine == null) {
-//            return null;
-//        }
-//        while (currLine != null) {
-//            if (!currLine.equals(FILTER_SUBSECTION_TITLE)) {
-//                throw new MissingSubsectionException(FILTER_SUBSECTION_MISSING_MSG);
-//            }
-////            advanceLine();
-//            Filter currFilter = parseFilterLine();
-//            advanceLine();
-//            if (!currLine.equals(ORDER_SUBSECTION_TITLE)) {
-//                throw new MissingSubsectionException(ORDER_SUBSECTION_MISSING_MSG);
-//            }
-//            Order currOrder = parseOrderLine();
-//            Section currSection = new Section(currFilter, currOrder);
-//            sections.add(currSection);
-//            advanceLine();
-//        }
-//        return sections;
-//    }
+
 
     /*
      * Parses the current command line into a filter object.
