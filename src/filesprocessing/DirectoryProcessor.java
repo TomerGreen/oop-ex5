@@ -12,17 +12,9 @@ import java.util.LinkedList;
 public class DirectoryProcessor {
 
     /**
-     * A parser object that, once created, holds the parsing warnings and parsed sections.
-     */
-    private CommandParser commandParser;
-
-    /**
      * Creates a processor object.
-     * @param commandFilePath The command file path.
-     * @throws Type2ErrorException If a fatal error occurs.
      */
-    public DirectoryProcessor(String commandFilePath) throws Type2ErrorException {
-        commandParser = new CommandParser(commandFilePath);
+    public DirectoryProcessor() {
     }
 
     /**
@@ -30,7 +22,7 @@ public class DirectoryProcessor {
      * @param sourceDirPath The path of the directory which contains the files.
      * @return An ordered list of files.
      */
-    private LinkedList<File> getProcessedFileList(String sourceDirPath) {
+    private static LinkedList<File> getProcessedFileList(String sourceDirPath, CommandParser commandParser) {
         File[] fileArray = new File(sourceDirPath).listFiles(commandParser);
         LinkedList<File> fileList = new LinkedList<>();
         for (File file : fileArray) {
@@ -49,9 +41,9 @@ public class DirectoryProcessor {
      */
     public static void main(String[] args) {
         try {
-            DirectoryProcessor processor = new DirectoryProcessor(args[1]);
-            LinkedList<File> processedFiles = processor.getProcessedFileList(args[0]);
-            for (String warning : processor.commandParser.getWarnings()) {
+            CommandParser parser = new CommandParser(args[1]);
+            LinkedList<File> processedFiles = getProcessedFileList(args[0], parser);
+            for (String warning : parser.getWarnings()) {
                 System.err.println(warning);
             }
             for (File file : processedFiles) {
