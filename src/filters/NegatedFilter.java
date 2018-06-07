@@ -1,4 +1,4 @@
-package filesprocessing.filters;
+package filters;
 
 import java.io.File;
 
@@ -8,7 +8,7 @@ import java.io.File;
  */
 public class NegatedFilter extends Filter {
 
-    /**
+    /*
      * The filter to be negated.
      */
     private Filter originalFilter;
@@ -22,6 +22,7 @@ public class NegatedFilter extends Filter {
         originalFilter = original;
     }
 
+    @Override
     public boolean accept(File file) {
         return !originalFilter.accept(file);
     }

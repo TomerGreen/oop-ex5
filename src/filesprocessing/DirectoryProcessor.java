@@ -1,6 +1,5 @@
 package filesprocessing;
 
-import filesprocessing.orders.*;
 import java.io.File;
 import java.util.LinkedList;
 
@@ -19,7 +18,7 @@ public class DirectoryProcessor {
     public DirectoryProcessor() {
     }
 
-    /**
+    /*
      * Returns an ordered list of the files that passed processing.
      * @param sourceDirPath The path of the directory which contains the files.
      * @return An ordered list of files.

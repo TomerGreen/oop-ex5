@@ -164,5 +164,4 @@ file4.A
 file2.a
 file1.a
 file0.a
-dir
 Same_a.txt

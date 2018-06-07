@@ -1,4 +1,4 @@
-package filesprocessing.filters;
+package filters;
 
 /**
  * A family of filters that accept files based on their name or extension string.

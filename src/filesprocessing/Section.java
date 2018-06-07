@@ -10,13 +10,13 @@ import java.util.LinkedList;
  */
 public class Section {
 
-    /** The filter object. */
+    /* The filter object. */
     private Filter filter;
 
-    /** The order object */
+    /* The order object */
     private Order order;
 
-    /** The section's warnings. */
+    /* The section's warnings. */
     private LinkedList<String> warnings;
 
     /**

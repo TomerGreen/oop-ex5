@@ -7,9 +7,9 @@ am_204713721
 =============================
 
     Package Description:
-        FilesProcessing -
+        FilesProcessing - Contains the logic of the actual program
         Filters - Contains all filter types.
-        Orders -
+        Orders - Contains all order type.
 
 
     Filter Package -
@@ -28,23 +28,24 @@ am_204713721
         SizeFilter.java - Implements filters that accepts files based on their size.
         SizeGreaterThanFilter.java - Implements a filter that accepts files strictly over a given size limit.
         SizeSmallerThanFilter.java - A filter that accepts files that are strictly smaller than a given size.
-        SuffixlsFilter.java -
-        WritableFilter.java -
+        SuffixlsFilter.java -  A filter that accepts files whose name ends with a given string.
+        WritableFilter.java - Implements a filter that only accepts writable files.
 
     Orders Package -
-        Order.java -
-        OrderFactory.java -
-        AbsOrder.java -
-        ReverseOrder.java -
-        SizeOrder.java -
-        TypeOrder.java -
+        Order.java - An abstract class represents an order in which the files should be printed.
+        OrderFactory.java - A factory class for creating the right kind of orders
+        AbsOrder.java - A subclass that compare between files based on the ABC orders of their AbsolutePath.
+        ReverseOrder.java - A subclass that compare between files based on the opposite of the determined
+                            orders.
+        SizeOrder.java - A subclass that compare between files based on their file size.
+        TypeOrder.java -  A subclass that compare between files based on their file type
 
     FilesProcessing Package -
-       CommandParser.java-
-       DirectoryProcessor.java -
-       Section.java -
-       Type1ErrorException.java -
-       Type2ErrorException.java -
+       CommandParser.java- Parses a command file into a list of section objects.
+       DirectoryProcessor.java - Processes files in a source directory according to a command file.
+       Section.java - Implements a command section, containing a filter and an order clause.
+       Type1ErrorException.java - An abstract superclass for all type II exceptions.
+       Type2ErrorException.java - An abstract superclass for all type II exceptions.
 
 =============================
 =          Design           =

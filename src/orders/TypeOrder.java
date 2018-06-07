@@ -1,9 +1,9 @@
-package filesprocessing.orders;
+package orders;
 
 import java.io.File;
 
 /**
- *  A subclass of the Order superclass,  compare between files based on their file type, going from ‘a’ to
+ *  A subclass of the Order superclass, compare between files based on their file type, going from ‘a’ to
  *  ‘z’.
  */
 public class TypeOrder extends Order {

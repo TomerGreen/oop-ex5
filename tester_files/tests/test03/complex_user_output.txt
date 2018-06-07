@@ -1,5 +1,4 @@
 Same_a.txt
-dir
 file0.a
 file1.a
 file2.a

@@ -1,4 +1,4 @@
-package filesprocessing.filters;
+package filters;
 
 import java.io.File;
 
@@ -16,6 +16,7 @@ public class ExecutableFilter extends BooleanFilter {
         super(value);
     }
 
+    @Override
     public boolean accept(File file) {
         return parameter == file.canExecute();
     }

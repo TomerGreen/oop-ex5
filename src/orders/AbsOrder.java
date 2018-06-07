@@ -1,4 +1,4 @@
-package filesprocessing.orders;
+package orders;
 
 import java.io.File;
 

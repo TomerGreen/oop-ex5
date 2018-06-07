@@ -2,7 +2,6 @@
 37.w.size-106.ABA.CBB
 126..size-92.ABB.BAA
 Same_a.txt
-dir
 file0.a
 file0.txt
 file1.a

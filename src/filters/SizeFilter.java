@@ -1,4 +1,4 @@
-package filesprocessing.filters;
+package filters;
 
 import filesprocessing.Type1ErrorException;
 

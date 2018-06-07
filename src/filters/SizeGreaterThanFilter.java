@@ -1,4 +1,4 @@
-package filesprocessing.filters;
+package filters;
 
 import java.io.File;
 
@@ -9,7 +9,7 @@ public class SizeGreaterThanFilter extends SizeFilter {
 
     private static final int NUM_FIELDS = 1;
 
-    /**
+    /*
      * Files strictly over this number of KB will be accepted.
      */
     private double limit;
@@ -28,6 +28,7 @@ public class SizeGreaterThanFilter extends SizeFilter {
         }
     }
 
+    @Override
     public boolean accept(File file) {
         double fileSize = (double) file.length()/1024;
         return fileSize > limit;

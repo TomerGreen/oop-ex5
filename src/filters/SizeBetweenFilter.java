@@ -1,4 +1,4 @@
-package filesprocessing.filters;
+package filters;
 
 import java.io.File;
 
@@ -9,12 +9,12 @@ public class SizeBetweenFilter extends SizeFilter{
 
     private static final int NUM_FIELDS = 2;
 
-    /**
+    /*
      * Files under this size in KB will not be accepted.
      */
     private double lowerBoundary;
 
-    /**
+    /*
      * Files over this size in KB will not be accepted.
      */
     private double upperBoundary;
@@ -36,6 +36,7 @@ public class SizeBetweenFilter extends SizeFilter{
         }
     }
 
+    @Override
     public boolean accept(File file) {
         double fileSize = (double) file.length()/1024;
         return (fileSize >= lowerBoundary && fileSize <= upperBoundary);
