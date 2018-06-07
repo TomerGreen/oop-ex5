@@ -11,7 +11,6 @@ am_204713721
         Filters - Contains all filter types.
         Orders - Contains all order type.
 
-
     Filter Package -
         FilterFactory.java -  A factory class for creating the right kind of filter.
         Filter.java - An abstract class that implements a filter.
@@ -76,6 +75,3 @@ a warning list which we add a message to every time an exception is thrown.
 implement the java.io.FileFilter interface. This way, it can be passed to the fileList function which will return
 only the files that pass all the filters.
 
-=============================
-=   Answers to Questions    =
-=============================

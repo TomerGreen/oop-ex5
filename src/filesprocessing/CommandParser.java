@@ -1,7 +1,7 @@
 package filesprocessing;
 
-import filesprocessing.orders.*;
-import filesprocessing.filters.*;
+import orders.*;
+import filters.*;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

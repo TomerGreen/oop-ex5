@@ -1,7 +1,7 @@
 package filesprocessing;
 
-import filesprocessing.filters.Filter;
-import filesprocessing.orders.Order;
+import filters.Filter;
+import orders.Order;
 
 import java.util.LinkedList;
 
