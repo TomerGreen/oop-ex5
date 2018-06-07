@@ -152,9 +152,9 @@ public class CommandParser {
             }
             // Current line could be a filter title or an invalid order name.
             else if (currLine.equals("FILTER")) {
-                // Current line is invalid order name.
+                // Current line is FILTER title, apparently..
                 if (firstNextLine == null) {
-                    order = OrderFactory.generateOrder(currLine);
+                    return new AbsOrder();
                 }
                 // Current line could be subsection title or invalid order name.
                 else if (firstNextLine.equals("FILTER")) {
