@@ -50,26 +50,29 @@ am_204713721
 =          Design           =
 =============================
 
-*  The Filter, Order and Section classes and subclasses are in a separate "filters" packages that share a path with the
-filesprocessing package. This is so that a user can import only these packages for a different file processing program.
+*  The Filter and Order classes and subclasses are in separate packages that share a path with the
+filesprocessing package. This is so that a user can import only these packages for a different file processing
+program.
 
-*  We decided to implement the two exception classes as abstract class, and create several nested classes for specific
-exceptions. This is so we can throw specific exceptions when needed, but still mask them under general categories for
-the calling function. We preferred to implement the most specific exceptions as nested classes so they will only be
-thrown in the proper context. This makes sure the caller knows which process caused each exception to be thrown.
+*  We decided to implement the two exception classes as abstract class, and create several nested classes for
+specific exceptions. This is so we can throw specific exceptions when needed, but still mask them under
+general categories for the calling function. We preferred to implement the most specific exceptions as nested
+classes so they will only be thrown in the proper context. This makes sure the caller knows which process
+caused each exception to be thrown.
 
-*  The Negated filter and Reverse order are implemented by a decorator class that takes a Filter or Order as an input
-and returns an object that matches a file iff it is not matched by it, or returns the opposite of the comparison of the
-original order command.
+*  The Negated filter and Reverse order are implemented by a decorator class that takes a Filter or Order as
+an input and returns an object that matches a file iff it is not matched by it, or returns the opposite of the
+ comparison of the original order command.
 
-*  We used constructors for abstract filter classes in order to initialize fields shared by several filter classes.
+*  We used constructors for abstract filter classes in order to initialize fields shared by several filter
+   classes.
 
 =============================
 =  Implementation details   =
 =============================
 
 *  Since we need to first check for Type II errors, and only then print all Type I errors, the parser class holds
-a warning list which we add a message to every time an exception is thrown.
+a warning linked list which we add a message to every time an exception is thrown.
 
 *  We decided to have CommandProcessor, which holds all the section objects parsed from the command file,
 implement the java.io.FileFilter interface. This way, it can be passed to the fileList function which will return
