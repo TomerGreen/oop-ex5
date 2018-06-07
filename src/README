@@ -6,6 +6,45 @@ am_204713721
 =      File description     =
 =============================
 
+    Package Description:
+        FilesProcessing -
+        Filters - Contains all filter types.
+        Orders -
+
+
+    Filter Package -
+        FilterFactory.java -  A factory class for creating the right kind of filter.
+        Filter.java - An abstract class that implements a filter.
+        BooleanFilter.java - Implements file filters that accept files based on a boolean property.
+        AllFilter.java - Implements a filter that accepts every file.
+        ExecutableFilter.java - Implements a filter that accepts executable files.
+        HiddenFilter.java -  Implements a filter that only accepts hidden files.
+        NameContainFilter.java - A filter that accepts files whose name contains the given value.
+        NameFilter.java - An abstract class that represents filters that accept files based on a string.
+        NamelsFilter.java - Accepts files granted their name is the given search string.
+        NegatedFilter.java - A decorator class that implements a negated filter
+        PrefixlsFilter.java - A filter that accepts files iff their name starts with a given string.
+        SizeBetweenFilter.java - Implements a filter that accepts files whose size is between given values.
+        SizeFilter.java - Implements filters that accepts files based on their size.
+        SizeGreaterThanFilter.java - Implements a filter that accepts files strictly over a given size limit.
+        SizeSmallerThanFilter.java - A filter that accepts files that are strictly smaller than a given size.
+        SuffixlsFilter.java -
+        WritableFilter.java -
+
+    Orders Package -
+        Order.java -
+        OrderFactory.java -
+        AbsOrder.java -
+        ReverseOrder.java -
+        SizeOrder.java -
+        TypeOrder.java -
+
+    FilesProcessing Package -
+       CommandParser.java-
+       DirectoryProcessor.java -
+       Section.java -
+       Type1ErrorException.java -
+       Type2ErrorException.java -
 
 =============================
 =          Design           =
